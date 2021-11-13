@@ -1,16 +1,25 @@
 Package: curatedMetagenomicDataCurationShiny
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tools for getting and checking sample metadata for inclusion in  
+    curatedMetagenomicData
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: c(
+        person(
+            given = "Samuel",
+            family = "Gamboa-Tuz", 
+            email = "Samuel.Gamboa.Tuz@gmail.com",
+            role = c("aut", "cre"),
+            comment = c(ORCID = "0000-0002-6863-7943")
+        )
+    )
+Description: An interactive tool for getting  sample metadata from the NCBI
+    SRA and for checking the curation of sample metadata files for
+    curatedMetagenomicData.
+License: Artistic-2.0 
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 4.1.1),
+    R (>= 4.1.0),
     curatedMetagenomicDataCuration,
 Imports: 
     shiny,
@@ -19,3 +28,5 @@ Imports:
 Remotes:
     waldronlab/curatedMetagenomicDataCuration
 RoxygenNote: 7.1.2
+URL: https://github.com/waldronlab/curatedMetagenomicDataCurationShiny
+BugReports: https://github.com/waldronlab/curatedMetagenomicDataCurationShiny/issues
