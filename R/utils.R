@@ -88,7 +88,7 @@
 
 .instructions_get_metadata <- function() {
     paste0(
-        'Eneter a valid SRP identifier and click on "Get Metadata"',
+        'Eneter a valid SRP identifier and click on "Get metadata"',
         ' Then, download your file by clicking on "Download".\n\n')
 }
 
