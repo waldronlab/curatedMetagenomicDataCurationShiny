@@ -1,16 +1,6 @@
-#' Create template list
-#'
-#' \code{.templateList} turns the template file in
-#' \url{https://github.com/waldronlab/curatedMetagenomicDataCuration/blob/master/inst/extdata/template.csv}
-#' into a list.
-#'
-#' This code is base on:
-#' \url{https://github.com/waldronlab/curatedMetagenomicDataCuration/blob/master/vignettes/curatedMetagenomicDataCuration.Rmd}
-#'
-#' @return A list.
-#'
-#' @keywords internal
-#'
+## The code in this file is based on:
+## https://github.com/waldronlab/curatedMetagenomicDataCuration/blob/master/vignettes/curatedMetagenomicDataCuration.Rmd
+
 .templateList <- function() {
 
     fname <- system.file(
