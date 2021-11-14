@@ -17,7 +17,7 @@ if (!"BiocManager" %in% installed.packages()[,"Package"])
 BiocManager::install("waldronlab/curatedMetagenomicDataCurationShiny") 
 ```
 
-## Run the App
+## Run the app
 
 ```r
 library(curatedMetagenomicDataCurationShiny)
