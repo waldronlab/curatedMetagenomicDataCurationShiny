@@ -84,3 +84,16 @@
         }
     }
 }
+
+
+.instructions_get_metadata <- function() {
+    paste0(
+        'Eneter a valid SRP identifier and click on "Get Metadata"',
+        ' Then, download your file by clicking on "Download".\n\n')
+}
+
+.instructions_checkCuration <- function() {
+    paste0('Upload a *_metadata.tsv file and click on "Check file".')
+}
+
+

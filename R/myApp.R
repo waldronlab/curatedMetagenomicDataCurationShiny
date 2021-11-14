@@ -35,6 +35,7 @@ myApp <- function() {
             tabPanel(
                 "Get metadata",
                 h1("Get metadata"),
+                textOutput("instructions_get_metadata"),
                 textInput(
                     "SRP",
                     "Enter NCBI's SRP identifier, e.g., SRP145336",
@@ -55,6 +56,7 @@ myApp <- function() {
 
                 ## Section 1 - Upload file
                 h1("Check curation"),
+                textOutput("instructions_checkCuration"),
                 h2("Upload metadata file"),
                 fileInput(
                     "upload", NULL,
@@ -104,6 +106,10 @@ myApp <- function() {
             }
         )
 
+        output$instructions_get_metadata <- renderText({
+            .instructions_get_metadata()
+        })
+
         output$text_output <- renderText(display_text())
 
         output$metadata <- renderDataTable({
@@ -129,6 +135,10 @@ myApp <- function() {
         display_text_2 <- eventReactive(input$check, {
             text <- paste0("Displaying report for ", input$upload$name)
             text
+        })
+
+        output$instructions_checkCuration <- renderText({
+            .instructions_checkCuration()
         })
 
         output$metadata_tsv <- renderDataTable({
