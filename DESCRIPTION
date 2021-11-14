@@ -25,7 +25,8 @@ Imports:
     shiny,
     shinyjs,
     waiter,
-    utils
+    utils,
+    readr
 Remotes:
     waldronlab/curatedMetagenomicDataCuration
 RoxygenNote: 7.1.2
