@@ -4,7 +4,10 @@
 #'
 #' @import shiny
 #' @importFrom curatedMetagenomicDataCuration get_metadata
-#' @importFrom utils write.csv
+#' @importFrom utils write.table
+#' @importFrom utils read.table
+#' @importFrom shinyjs useShinyjs
+#' @importFrom shinyjs html
 #'
 #' @export
 #'
@@ -13,6 +16,7 @@ myApp <- function() {
     ui <- fluidPage(
 
         titlePanel("curatedMeatgenomicDataCuration"),
+        shinyjs::useShinyjs(),
         tabsetPanel(
 
             ## Starts code for get_metadata UI ####
@@ -26,7 +30,6 @@ myApp <- function() {
                 ),
                 fluidRow(
                     actionButton("get_metadata_click", "Get metadata"),
-                    #actionButton("clear", "Clear"),
                     downloadButton("download_metadata")
                 ),
                 waiter::use_waiter(),
@@ -37,7 +40,24 @@ myApp <- function() {
             ## Starts code for checkCuration UI ####
             tabPanel(
                 "Check curation",
-                fileInput("upload", NULL)
+
+                ## Section 1 - Upload file
+                h1("Check curation"),
+                h2("Upload metadata file"),
+                fileInput(
+                    "upload", NULL,
+                    buttonLabel = "Upload...",
+                    placeholder = "AsnicarF_2017_metadata.tsv",
+                    accept = c("_metadata.tsv")
+                ),
+                dataTableOutput("metadata_tsv"),
+
+                ## Section 2 - Check
+                h2("Check metadata file"),
+                actionButton("check", label = "Check file"),
+                waiter::use_waiter(),
+                h4(textOutput("text_output_2")),
+                verbatimTextOutput("report")
             )
         )
     )
@@ -56,7 +76,7 @@ myApp <- function() {
             waiter$show()
             on.exit(waiter$hide())
             showNotification(
-                paste0("Metadata for ", input$SRP), duration = 3
+                paste0("Getting metadata for ", input$SRP), duration = 3
             )
             df <- get_metadata(input$SRP)
             df$SRRs <- as.character(df$SRRs)
@@ -71,14 +91,56 @@ myApp <- function() {
 
         output$download_metadata <- downloadHandler(
             filename = function() {
-                paste0(input$SRP, ".csv")
+                paste0(input$SRP, ".tsv")
             },
             content = function(file) {
-                write.csv(metadata(), file)
+                write.table(metadata(), file, sep = "\t", quote = TRUE)
             }
         )
 
         ## Starts code for checkCuration server ####
+
+        metadata_file <- reactive({
+            req(input$upload)
+            fname <- input$upload$name
+            if (!grepl("_metadata.tsv$", fname)) {
+                validate(paste0(
+                        "Invalid file name.",
+                        " Please upload a tab separated file whose name ends",
+                        " in *_metadata.tsv file."
+                ))
+            }
+            tsv <- read.table(input$upload$datapath, sep = "\t", header = TRUE)
+            tsv
+        })
+
+        display_text_3 <- eventReactive(input$check, {
+            text <- paste0("Displaying report for ", input$upload$name)
+            text
+        })
+
+        output$metadata_tsv <- renderDataTable({
+            metadata_file()
+        }, options = list(pageLength = 10))
+
+        output$text_output_2 <- renderText(display_text_3())
+
+        ## https://stackoverflow.com/questions/30474538/possible-to-show-console-messages-written-with-message-in-a-shiny-ui
+        observeEvent(input$check, {
+            waiter <- waiter::Waiter$new()
+            waiter$show()
+            on.exit(waiter$hide())
+            showNotification(
+                paste0("Checking ", input$upload$name), duration = 3
+            )
+            withCallingHandlers({
+                shinyjs::html("report", "")
+                .curationReport(metadata_file())
+            },
+                message = function(m) {
+                    shinyjs::html(id = "report", html = m$message, add = TRUE)
+                })
+        })
 
     }
 

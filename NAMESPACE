@@ -3,4 +3,7 @@
 export(myApp)
 import(shiny)
 importFrom(curatedMetagenomicDataCuration,get_metadata)
-importFrom(utils,write.csv)
+importFrom(shinyjs,html)
+importFrom(shinyjs,useShinyjs)
+importFrom(utils,read.table)
+importFrom(utils,write.table)

@@ -23,6 +23,7 @@ Depends:
     curatedMetagenomicDataCuration,
 Imports: 
     shiny,
+    shinyjs,
     waiter,
     utils
 Remotes:
