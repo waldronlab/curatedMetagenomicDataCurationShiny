@@ -1,6 +1,10 @@
 #' Run App
 #'
-#' @return An instance of a shinyApp
+#' \code{myApp} runs a shinyApp for the \code{get_metadata} and
+#' \code{checkCuration} functions of the curatedMetagenomicDataCuration
+#' package.
+#'
+#' @return An instance of a shinyApp.
 #'
 #' @import shiny
 #' @importFrom curatedMetagenomicDataCuration get_metadata
@@ -10,6 +14,14 @@
 #' @importFrom shinyjs html
 #'
 #' @export
+#'
+#' @examples
+#'
+#' \dontrun{
+#'
+#' runApp()
+#'
+#' }
 #'
 myApp <- function() {
 
@@ -83,12 +95,6 @@ myApp <- function() {
             df
         })
 
-        output$text_output <- renderText(display_text())
-
-        output$metadata <- renderDataTable({
-            metadata()
-        }, options = list(pageLength = 10))
-
         output$download_metadata <- downloadHandler(
             filename = function() {
                 paste0(input$SRP, ".tsv")
@@ -97,6 +103,12 @@ myApp <- function() {
                 write.table(metadata(), file, sep = "\t", quote = TRUE)
             }
         )
+
+        output$text_output <- renderText(display_text())
+
+        output$metadata <- renderDataTable({
+            metadata()
+        }, options = list(pageLength = 10))
 
         ## Starts code for checkCuration server ####
 
@@ -114,7 +126,7 @@ myApp <- function() {
             tsv
         })
 
-        display_text_3 <- eventReactive(input$check, {
+        display_text_2 <- eventReactive(input$check, {
             text <- paste0("Displaying report for ", input$upload$name)
             text
         })
@@ -123,7 +135,7 @@ myApp <- function() {
             metadata_file()
         }, options = list(pageLength = 10))
 
-        output$text_output_2 <- renderText(display_text_3())
+        output$text_output_2 <- renderText(display_text_2())
 
         ## https://stackoverflow.com/questions/30474538/possible-to-show-console-messages-written-with-message-in-a-shiny-ui
         observeEvent(input$check, {

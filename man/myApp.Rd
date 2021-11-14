@@ -7,8 +7,19 @@
 myApp()
 }
 \value{
-An instance of a shinyApp
+An instance of a shinyApp.
 }
 \description{
-Run App
+\code{myApp} runs a shinyApp for the \code{get_metadata} and
+\code{checkCuration} functions of the curatedMetagenomicDataCuration
+package.
+}
+\examples{
+
+\dontrun{
+
+runApp()
+
+}
+
 }
