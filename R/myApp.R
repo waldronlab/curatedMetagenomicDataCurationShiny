@@ -19,7 +19,7 @@
 #'
 #' \dontrun{
 #'
-#' runApp()
+#' myApp()
 #'
 #' }
 #'

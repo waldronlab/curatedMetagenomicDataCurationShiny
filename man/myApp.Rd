@@ -18,7 +18,7 @@ package.
 
 \dontrun{
 
-runApp()
+myApp()
 
 }
 
