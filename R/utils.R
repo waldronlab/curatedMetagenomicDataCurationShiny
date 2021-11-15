@@ -88,12 +88,19 @@
 
 .instructions_get_metadata <- function() {
     paste0(
-        'Eneter a valid SRP identifier and click on "Get metadata"',
+        'Enter a valid NCBI SRA study identifier (SRP#, ERP#, or DRP#) and',
+        ' click on "Get metadata".',
         ' Then, download your file by clicking on "Download".\n\n')
 }
 
 .instructions_checkCuration <- function() {
-    paste0('Upload a *_metadata.tsv file and click on "Check file".')
+    paste0(
+        'Upload a *_metadata.tsv file and click on "Check file".',
+        ' If no curation errors are found, you should see "Status: OK." in the',
+        ' report. Otherwise, if there are curations erros in the file, you',
+        ' should see "Status: Errors found." in the report followed by the',
+        ' list of curation errors that must be fixed.'
+    )
 }
 
 
