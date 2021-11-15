@@ -12,6 +12,12 @@
 #' @importFrom utils read.table
 #' @importFrom shinyjs useShinyjs
 #' @importFrom shinyjs html
+#' @importFrom rlang .data
+#' @importFrom dplyr group_by
+#' @importFrom dplyr across
+#' @importFrom dplyr summarise
+#' @importFrom dplyr ungroup
+#' @importFrom magrittr %>%
 #'
 #' @export
 #'
@@ -64,6 +70,7 @@ myApp <- function() {
                     placeholder = "AsnicarF_2017_metadata.tsv",
                     accept = c("_metadata.tsv")
                 ),
+                waiter::use_waiter(),
                 dataTableOutput("metadata_tsv"),
 
                 ## Section 2 - Check
@@ -93,8 +100,15 @@ myApp <- function() {
                 paste0("Getting metadata for ", input$SRP), duration = 3
             )
             df <- get_metadata(input$SRP)
-            df$SRRs <- as.character(df$SRRs)
-            df
+            df2 <- df %>%
+                dplyr::group_by(dplyr::across(-.data[["SRRs"]])) %>%
+                dplyr::summarise(
+                    dplyr::across(.data[["SRRs"]], ~ paste0(.x, collapse = ";"))
+                ) %>%
+                dplyr::ungroup() %>%
+                as.data.frame()
+            df2 <- df2[, colnames(df)]
+            df2
         })
 
         output$download_metadata <- downloadHandler(
@@ -120,6 +134,12 @@ myApp <- function() {
 
         metadata_file <- reactive({
             req(input$upload)
+            waiter <- waiter::Waiter$new()
+            waiter$show()
+            on.exit(waiter$hide())
+            showNotification(
+                paste0("Uploading ", input$upload$name), duration = 3
+            )
             fname <- input$upload$name
             if (!grepl("_metadata.tsv$", fname)) {
                 validate(paste0(

@@ -26,7 +26,10 @@ Imports:
     shinyjs,
     waiter,
     utils,
-    readr
+    readr,
+    rlang,
+    dplyr,
+    magrittr
 Remotes:
     waldronlab/curatedMetagenomicDataCuration
 RoxygenNote: 7.1.2
