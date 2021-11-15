@@ -44,7 +44,7 @@ myApp <- function() {
                 textOutput("instructions_get_metadata"),
                 textInput(
                     "SRP",
-                    "Enter NCBI's SRP identifier, e.g., SRP145336",
+                    "Enter ID, e.g., SRP145336, ERP001956, DRP000969",
                     placeholder = "SRP145336"
                 ),
                 fluidRow(
@@ -103,7 +103,10 @@ myApp <- function() {
             df2 <- df %>%
                 dplyr::group_by(dplyr::across(-.data[["SRRs"]])) %>%
                 dplyr::summarise(
-                    dplyr::across(.data[["SRRs"]], ~ paste0(.x, collapse = ";"))
+                    dplyr::across(
+                        .data[["SRRs"]],
+                        ~ paste0(unlist(.x), collapse = ";")
+                    )
                 ) %>%
                 dplyr::ungroup() %>%
                 as.data.frame()
