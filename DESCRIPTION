@@ -1,4 +1,4 @@
-Package: curatedMetagenomicDataCurationShiny
+Package: curatedMetagenomicDataShinyApp
 Type: Package
 Title: Tools for getting and checking sample metadata for inclusion in  
     curatedMetagenomicData
@@ -33,5 +33,9 @@ Imports:
 Remotes:
     waldronlab/curatedMetagenomicDataCuration
 RoxygenNote: 7.1.2
-URL: https://github.com/waldronlab/curatedMetagenomicDataCurationShiny
-BugReports: https://github.com/waldronlab/curatedMetagenomicDataCurationShiny/issues
+URL: https://github.com/waldronlab/curatedMetagenomicDataShinyApp
+BugReports: https://github.com/waldronlab/curatedMetagenomicDataShinyApp/issues
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

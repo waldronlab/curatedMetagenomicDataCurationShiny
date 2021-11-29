@@ -1,0 +1,57 @@
+---
+title: "curatedMetagenomicDataShinyApp"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{curatedMetagenomicDataShinyApp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The package can be installed and initiated from within R with the following
+command:
+
+```{r setup, eval=FALSE}
+
+## Install package
+if (!"BiocManager" %in% installed.packages()[,"Package"])
+    install.packages("BiocManager")
+BiocManager::install("waldronlabcuratedMetagenomicDataShinyApp/")
+
+## Attach package
+library(curatedMetagenomicDataShinyApp)
+
+## Start application
+myApp()
+```
+
+
+[Figure]
+
+## Get sample metadata for an NCBI SRA project
+
+
+### Step 1. Search
+
+[Figure]
+
+
+### Step 2. Download
+
+[Figure]
+
+
+## Check curation
+
+
+
+
+
+
+
